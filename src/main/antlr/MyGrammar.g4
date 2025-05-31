@@ -7,6 +7,14 @@ AS: 'as';
 CLASS: 'class';
 EXPORT: 'export';
 COMPONENT: '@Component';
+NGMODULE: '@NgModule';  // أضفت هذا
+
+
+DECLARATIONS: 'declarations';
+IMPORTS: 'imports';
+PROVIDERS: 'providers';
+BOOTSTRAP: 'bootstrap';
+
 SELECTOR: 'selector';
 TEMPLATE: 'template';
 STYLES: 'styles';
@@ -25,9 +33,9 @@ EQUALS: '=';
 SEMI: ';';
 
 // سلاسل نصية وقيم
-BACKTICK_STRING: '`' .*? '`';
-STRING: '\'' .*? '\'';
-DOUBLE_QUOTE_STRING: '"' .*? '"';
+BACKTICK_STRING : '`' (~[`])* '`';
+STRING : '\'' (~['\r\n])* '\'';
+DOUBLE_QUOTE_STRING : '"' (~["\r\n])* '"';
 NUMBER: [0-9]+;
 
 // معرفات (متغيرات، أسماء كائنات، ...)

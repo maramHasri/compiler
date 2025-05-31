@@ -2,7 +2,6 @@ parser grammar MyGrammarParser;
 
 options { tokenVocab=MyGrammar; }
 
-ngFile: importStatement* componentDefinition classDefinition;
 
 importStatement: IMPORT importItems FROM (STRING | DOUBLE_QUOTE_STRING) SEMI;
 
@@ -42,3 +41,30 @@ classDefinition
     ;
 
 classBody: .*? ; // سنُحسنها لاحقًا إذا أردنا تحليل الخصائص الداخلية
+
+
+ ngFile
+     : importStatement*
+       componentDefinition*
+       ngModuleDefinition*  // أضف تحليل الـ NgModule هنا
+       classDefinition*
+     ;
+
+ ngModuleDefinition
+     : NGMODULE LPAREN ngModuleObject RPAREN
+     ;
+
+ ngModuleObject
+     : LBRACE ngModuleProperty (COMMA ngModuleProperty)* RBRACE
+     ;
+
+ ngModuleProperty
+     : DECLARATIONS COLON arrayOfIdents
+     | IMPORTS COLON arrayOfIdents
+     | PROVIDERS COLON arrayOfIdents
+     | BOOTSTRAP COLON arrayOfIdents
+     ;
+
+ arrayOfIdents
+     : LBRACK (IDENT (COMMA IDENT)*)? RBRACK
+     ;
